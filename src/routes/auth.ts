@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { auth as firebaseAuth } from "@/firebase";
+import { admin, auth as firebaseAuth, firestore } from "@/firebase";
 import { fetchJson, FetchError } from "@/utils/fetch"; // 作成したラッパーをインポート
 import type { UserProfile, VerifyTokenResult } from "@/types/line"; // 作成した型をインポート
 import { StatusCode } from "hono/utils/http-status";
@@ -26,9 +26,18 @@ app.post("/line", async (c) => {
 
     const lineUserId = profile.userId;
 
-    // (省略) Firestoreへの保存処理など
+    // 3. Firestoreにユーザーが存在するか確認し、存在しなければ登録する
+    const userRef = firestore.collection("Users").doc(lineUserId);
+    const userDoc = await userRef.get();
 
-    // 3. Firebaseのカスタムトークンを生成
+    if (!userDoc.exists) {
+      const { displayName, pictureUrl } = profile;
+      const createdAt = admin.firestore.FieldValue.serverTimestamp();
+
+      await userRef.set({ lineUserId, displayName, pictureUrl, createdAt });
+    }
+
+    // 4. Firebaseのカスタムトークンを生成
     const firebaseToken = await firebaseAuth.createCustomToken(lineUserId);
 
     return c.json({ firebaseToken });
