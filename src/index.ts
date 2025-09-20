@@ -2,6 +2,7 @@ import { Hono } from "hono";
 // import { handle } from "hono/vercel";
 
 import { authRoute } from "./routes/auth";
+import { cors } from "hono/cors";
 // import { lineRoute } from "../src/routes/line.js";
 // import { stripeRoute } from "../src/routes/stripe.js";
 
@@ -11,6 +12,19 @@ import { authRoute } from "./routes/auth";
 // };
 
 const app = new Hono();
+
+// Add CORS middleware
+app.use(
+  "*",
+  cors({
+    origin: [
+      "https://asobiba-machica-test.web.app", // Staging Frontend
+      "http://localhost:5173", // Local Development
+    ],
+    allowHeaders: ["Content-Type"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+  })
+);
 
 // // Register routes
 app.route("/auth", authRoute);
