@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { handle } from "hono/vercel";
+// import { handle } from "hono/vercel";
 
 // import { authRoute } from "../src/routes/auth.js";
 // import { lineRoute } from "../src/routes/line.js";
