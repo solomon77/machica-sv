@@ -15,6 +15,8 @@ export async function fbAuth(c: Context) {
     const verifyUrl = `https://api.line.me/oauth2/v2.1/verify?access_token=${lineAccessToken}`;
     const verifyResult = await fetchJson<VerifyTokenResult>(verifyUrl);
 
+    console.log({ verifyResult });
+
     if (verifyResult.client_id !== process.env.LINE_CHANNEL_ID) {
       return c.json({ error: "Invalid LINE token" }, 401);
     }
