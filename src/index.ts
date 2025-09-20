@@ -6,9 +6,9 @@ import { Hono } from "hono";
 // import { stripeRoute } from "../src/routes/stripe.js";
 
 // Configures the Vercel runtime
-export const config = {
-  runtime: "nodejs",
-};
+// export const config = {
+//   runtime: "nodejs",
+// };
 
 const app = new Hono();
 
