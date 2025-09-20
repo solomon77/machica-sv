@@ -15,7 +15,7 @@ const app = new Hono();
 
 // Add CORS middleware
 app.use(
-  "*",
+  "/line",
   cors({
     origin: "*",
     // origin: [
