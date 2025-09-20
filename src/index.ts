@@ -21,8 +21,12 @@ app.use(
       "https://asobiba-machica-test.web.app", // Staging Frontend
       "http://localhost:5173", // Local Development
     ],
-    // allowHeaders: ["Content-Type"],
-    allowMethods: ["POST", "GET"],
+    allowHeaders: [
+      "X-Custom-Header",
+      "Upgrade-Insecure-Requests",
+      "Content-Type",
+    ],
+    allowMethods: ["POST", "GET", "OPTIONS"],
   })
 );
 
