@@ -22,4 +22,4 @@ const app = new Hono();
 
 app.get("/", (c) => c.text("machica-sv API"));
 
-export default handle(app);
+export default app;
