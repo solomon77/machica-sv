@@ -10,7 +10,7 @@ export const config = {
   runtime: 'nodejs',
 };
 
-const app = new Hono().basePath('/api');
+const app = new Hono();
 
 // Register routes
 app.route('/auth', authRoute);
