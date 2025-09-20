@@ -17,6 +17,9 @@ app.route('/auth', authRoute);
 app.route('/stripe', stripeRoute);
 app.route('/line', lineRoute);
 
+// Health check endpoint for deployment verification
+app.get('/__health', (c) => c.text('vercel-cors-fix-final-test'));
+
 app.get('/', (c) => c.text('machica-sv API'));
 
 export default handle(app);
