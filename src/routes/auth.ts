@@ -1,10 +1,24 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { admin, auth as firebaseAuth, firestore } from "@/firebase";
 import { fetchJson, FetchError } from "@/utils/fetch"; // 作成したラッパーをインポート
 import type { UserProfile, VerifyTokenResult } from "@/types/line"; // 作成した型をインポート
 import { StatusCode } from "hono/utils/http-status";
 
 const app = new Hono();
+
+// Add CORS middleware
+app.use(
+  "*",
+  cors({
+    origin: [
+      "https://asobiba-machica-test.web.app", // Staging Frontend
+      "http://localhost:5173", // Local Development
+    ],
+    allowHeaders: ["Content-Type"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+  })
+);
 
 app.post("/line", async (c) => {
   try {
