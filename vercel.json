@@ -1,8 +1,10 @@
 {
-  "builds": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "hono",
+  "rewrites": [
     {
-      "src": "src/index.ts",
-      "use": "@vercel/node"
+      "source": "src/index.ts",
+      "destination": "/"
     }
   ]
 }
