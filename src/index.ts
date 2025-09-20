@@ -33,6 +33,7 @@ app.use(
 
 // // Register routes
 app.post("/line", fbAuth);
+app.get("/line", (c) => c.text("machica-sv /line"));
 // app.route("/stripe", stripeRoute);
 // app.route("/line", lineRoute);
 
