@@ -12,7 +12,10 @@
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@": ["/*"]
+    }
   },
   "include": ["api/**/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
