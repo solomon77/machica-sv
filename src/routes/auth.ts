@@ -27,14 +27,30 @@ export async function fbAuth(c: Context) {
       headers: { Authorization: `Bearer ${lineAccessToken}` },
     });
 
-    const lineUserId = profile.userId;
+    const { displayName, pictureUrl, userId: lineUserId } = profile;
+
+    try {
+      await admin.auth().updateUser(lineUserId, {
+        displayName: displayName,
+        photoURL: pictureUrl,
+      });
+    } catch (error: any) {
+      if (error.code === "auth/user-not-found") {
+        await admin.auth().createUser({
+          uid: lineUserId,
+          displayName: displayName,
+          photoURL: pictureUrl,
+        });
+      } else {
+        throw error;
+      }
+    }
 
     // 3. Firestoreにユーザーが存在するか確認し、存在しなければ登録する
     const userRef = firestore.collection("Users").doc(lineUserId);
     const userDoc = await userRef.get();
 
     if (!userDoc.exists) {
-      const { displayName, pictureUrl } = profile;
       const createdAt = admin.firestore.FieldValue.serverTimestamp();
 
       await userRef.set({ lineUserId, displayName, pictureUrl, createdAt });
