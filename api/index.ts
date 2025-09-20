@@ -1,9 +1,9 @@
 import { Hono } from 'hono';
 import { handle } from 'hono/vercel';
 
-import { authRoute } from '@/routes/auth';
-import { lineRoute } from '@/routes/line';
-import { stripeRoute } from '@/routes/stripe';
+import { authRoute } from '../src/routes/auth.js';
+import { lineRoute } from '../src/routes/line.js';
+import { stripeRoute } from '../src/routes/stripe.js';
 
 // Configures the Vercel runtime
 export const config = {
