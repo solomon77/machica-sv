@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 // import { handle } from "hono/vercel";
 
-import { fbAuth } from "./routes/auth";
+import { fbAuth } from "./routes/auth.js";
 import { cors } from "hono/cors";
 // import { lineRoute } from "../src/routes/line.js";
 // import { stripeRoute } from "../src/routes/stripe.js";
