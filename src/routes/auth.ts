@@ -9,6 +9,8 @@ export async function fbAuth(c: Context) {
   try {
     const { lineAccessToken } = await c.req.json();
 
+    console.log({ lineAccessToken });
+
     // 1. LINEのアクセストークンを検証 (型安全なラッパーを使用)
     const verifyUrl = `https://api.line.me/oauth2/v2.1/verify?access_token=${lineAccessToken}`;
     const verifyResult = await fetchJson<VerifyTokenResult>(verifyUrl);
