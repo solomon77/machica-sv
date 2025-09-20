@@ -2,11 +2,12 @@ import { admin, auth as firebaseAuth, firestore } from "../firebase.js";
 import { fetchJson, FetchError } from "../utils/fetch.js"; // 作成したラッパーをインポート
 import type { UserProfile, VerifyTokenResult } from "../types/line.js"; // 作成した型をインポート
 import { StatusCode } from "hono/utils/http-status";
-import app from "@/index.js";
+import type { Context } from "hono";
 
-app.post("/line", async (c) => {
+export async function fbAuth(c: Context) {
+  console.log("auth page");
   try {
-    const { lineAccessToken } = await c.req.json<{ lineAccessToken: string }>();
+    const { lineAccessToken } = await c.req.json();
 
     // 1. LINEのアクセストークンを検証 (型安全なラッパーを使用)
     const verifyUrl = `https://api.line.me/oauth2/v2.1/verify?access_token=${lineAccessToken}`;
@@ -51,6 +52,4 @@ app.post("/line", async (c) => {
     c.status(500);
     return c.json({ error: "Internal server error" });
   }
-});
-
-export const authRoute = app;
+}

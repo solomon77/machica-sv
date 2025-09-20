@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 // import { handle } from "hono/vercel";
 
-import { authRoute } from "./routes/auth";
+import { fbAuth } from "./routes/auth";
 import { cors } from "hono/cors";
 // import { lineRoute } from "../src/routes/line.js";
 // import { stripeRoute } from "../src/routes/stripe.js";
@@ -27,7 +27,7 @@ app.use(
 );
 
 // // Register routes
-app.route("/auth", authRoute);
+app.post("/line", fbAuth);
 // app.route("/stripe", stripeRoute);
 // app.route("/line", lineRoute);
 
