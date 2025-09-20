@@ -7,14 +7,11 @@ import { StatusCode } from "hono/utils/http-status";
 
 const app = new Hono();
 
-// Add CORS middleware
+// Add CORS middleware for debugging
 app.use(
   "*",
   cors({
-    origin: [
-      "https://asobiba-machica-test.web.app", // Staging Frontend
-      "http://localhost:5173", // Local Development
-    ],
+    origin: "*", // Allow all origins for debugging
     allowHeaders: ["Content-Type"],
     allowMethods: ["POST", "GET", "OPTIONS"],
   })
