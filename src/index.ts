@@ -17,11 +17,9 @@ const app = new Hono();
 app.use(
   "/line",
   cors({
-    origin: "*",
-    // origin: [
-    //   "https://asobiba-machica-test.web.app", // Staging Frontend
-    //   "http://localhost:5173", // Local Development
-    // ],
+    origin: [
+      "https://asobiba-machica-test.web.app", // Staging Frontend
+    ],
     // allowHeaders: [
     //   "X-Custom-Header",
     //   "Upgrade-Insecure-Requests",
