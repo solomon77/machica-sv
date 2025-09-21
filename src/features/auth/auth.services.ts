@@ -1,4 +1,4 @@
-import { admin, firestore } from "../../firebase.js";
+import { admin, firestore } from "../../lib/firebase.js";
 import { fetchJson } from "../../utils/fetch.js";
 import type { UserProfile } from "./auth.types.js";
 
@@ -10,7 +10,9 @@ export async function getLineProfile(lineAccessToken: string) {
   return profile;
 }
 
-export async function createOrUpdateFirebaseAuthUser(lineUserProfile: UserProfile) {
+export async function createOrUpdateFirebaseAuthUser(
+  lineUserProfile: UserProfile
+) {
   const { displayName, pictureUrl: photoURL, userId: uid } = lineUserProfile;
 
   try {

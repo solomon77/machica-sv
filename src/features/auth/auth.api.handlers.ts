@@ -1,4 +1,4 @@
-import { auth as firebaseAuth } from "../../firebase.js";
+import { auth as firebaseAuth } from "../../lib/firebase.js";
 import { fetchJson, FetchError } from "../../utils/fetch.js";
 import type { VerifyTokenResult } from "./auth.types.js";
 import type { Context } from "hono";
@@ -9,7 +9,7 @@ import {
 } from "./auth.services.js";
 import { StatusCode } from "hono/utils/http-status.js";
 
-export async function fbAuthHandler(c: Context) {
+export async function authApiHandler(c: Context) {
   try {
     const { lineAccessToken } = await c.req.json();
 
