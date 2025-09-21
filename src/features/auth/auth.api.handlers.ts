@@ -9,7 +9,7 @@ import {
 } from "./auth.services.js";
 import { StatusCode } from "hono/utils/http-status.js";
 
-export async function authApiHandler(c: Context) {
+export default async function authApiHandler(c: Context) {
   try {
     const { lineAccessToken } = await c.req.json();
 
