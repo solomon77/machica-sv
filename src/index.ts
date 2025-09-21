@@ -1,43 +1,15 @@
 import { Hono } from "hono";
-// import { handle } from "hono/vercel";
-
-import { fbAuth } from "./routes/auth.js";
 import { cors } from "hono/cors";
-// import { lineRoute } from "../src/routes/line.js";
-// import { stripeRoute } from "../src/routes/stripe.js";
-
-// Configures the Vercel runtime
-// export const config = {
-//   runtime: "nodejs",
-// };
+import { authRouter } from "./features/auth/auth.router.js";
 
 const app = new Hono();
 
-// Add CORS middleware
-app.use(
-  "/line",
-  cors({
-    origin: [
-      "https://asobiba-machica-test.web.app", // Staging Frontend
-    ],
-    // allowHeaders: [
-    //   "X-Custom-Header",
-    //   "Upgrade-Insecure-Requests",
-    //   "Content-Type",
-    // ],
-    // allowMethods: ["POST", "GET", "OPTIONS"],
-  })
-);
+app.use("*", cors({ origin: [process.env.CLIENT_URL as string] }));
 
-// // Register routes
-app.post("/line", fbAuth);
-app.get("/line", (c) => c.text("machica-sv /line"));
-// app.route("/stripe", stripeRoute);
-// app.route("/line", lineRoute);
+// Health Check
+app.get("/", (c) => c.text("machica-sv API is running!"));
 
-// // Health check endpoint for deployment verification
-// app.get("/__health", (c) => c.text("vercel-cors-fix-final-test"));
-
-app.get("/", (c) => c.text("machica-sv API"));
+// Feature Routing
+app.route("/api/auth", authRouter);
 
 export default app;
