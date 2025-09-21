@@ -15,8 +15,14 @@ export default async function productsApiHandler(c: Context) {
      * 2. 商品と価格をマージ
      */
     const productsWithPrices = stripeProducts.data.map((pd) => {
-      const prices = stripePrices.data.filter((pr) => pr.product === pd.id);
-      return { ...pd, prices };
+      const thePriceInfo = stripePrices.data.find(
+        (pr) => pr.id === pd.default_price
+      );
+      const { id, metadata, name } = pd;
+      if (!thePriceInfo) return { id };
+      const { unit_amount: price } = thePriceInfo;
+
+      return { id, name, metadata, price };
     });
 
     /**
