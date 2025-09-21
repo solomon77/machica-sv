@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { stripe } from "../../lib/stripe";
+import { stripe } from "../../lib/stripe.js";
 
 export default async function productsApiHandler(c: Context) {
   try {
